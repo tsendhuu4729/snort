@@ -1,0 +1,20 @@
+# $Id: local.rules,v 1.11 2004/07/23 20:15:44 bmc Exp $
+# ----------------
+# LOCAL RULES
+# ----------------
+# This file intentionally does not come with signatures.  Put your local
+# additions here.
+
+alert icmp $HOME_NET any -> 192.168.10.161 any (msg:"ICMP ping"; sid:200; rev:200;)
+
+alert icmp any any -> 192.168.10.161 any (msg:"icmp ping flood attack"; threshold: type both, track by_dst, count 200, seconds>
+
+alert tcp any any -> any any (msg:"possible SYN DOS"; flags: S; flow: stateless; threshold: type both, track by_dst, count 100>
+
+#alert tcp 192.168.10.112 80 -> 192.168.10.252 any (msg:"alert md5 hash"; flags:A,P; classtype:trojan-activity; uricontent:"/f>
+
+#alert tcp any any -> any any ( msg:"alert file "; flow: to_client, established; file_data; content:"|4c 4f 4f 44 45 52 0a 23|>
+
+#alert tcp 192.168.10.11 80 -> 192.168.10.10 any (msg:"alert md5 hash"; flags: AP; classtype:trojan-activity; metadata:service>
+
+#alert tcp 192.168.10.252 any -> 192.168.10.112 80 (msg:"Detect .py file"; flow:established,to_server; content:".py"; http_raw>
